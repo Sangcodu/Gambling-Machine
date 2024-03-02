@@ -5,7 +5,42 @@ MAX_BET = 100
 MIN_BET = 1
 
 ROWS = 3
-COLONS = 3
+COLS = 3
+
+symbol_count = {
+    'A': 2,
+    'B': 4,
+    'C':6,
+    'D':8,
+}
+
+def get_slot_machine_spin(rows, cols, symbols):
+    all_symbol = []
+    for  symbol, symbol_count in symbols.items():
+        for _ in range(symbol_count):
+            all_symbol.append(symbol)
+
+    columns = [[], [], []]
+    for _ in range(cols):
+        column = []
+        #[:] tp create a copy
+        current_symbols = all_symbol[:]
+        for _ in range(rows):
+            value = random.choice(all_symbol)
+            current_symbols.remove(value)
+            column.append(value)
+        columns.append(column)
+
+    return columns 
+
+def print_slot_machine(columns):
+    for row in range(len(columns[0])):
+        for i, column in enumerate(columns):
+            if i != len(columns)-1:
+                print(column[row], end=" | ")
+            else:
+                print(column[row])
+        print()
 
 # Get the deposit amount
 def deposit():
@@ -62,5 +97,10 @@ def main():
             print(f"Insufficient Fund, you current balance is {balance}")
         else:
             break
+        
     print(f"Your betting is ${bet} on {lines} line. Total bet is equal to ${total_bet}.\n")
+
+    slots = get_slot_machine_spin(ROWS, COLS, symbol_count)
+    print_slot_machine(slots)
+
 main() 
