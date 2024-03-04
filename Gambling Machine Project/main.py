@@ -16,11 +16,11 @@ symbol_count = {
 
 def get_slot_machine_spin(rows, cols, symbols):
     all_symbol = []
-    for  symbol, symbol_count in symbols.items():
+    for symbol, symbol_count in symbols.items():
         for _ in range(symbol_count):
             all_symbol.append(symbol)
 
-    columns = [[], [], []]
+    columns = []
     for _ in range(cols):
         column = []
         #[:] tp create a copy
@@ -29,6 +29,7 @@ def get_slot_machine_spin(rows, cols, symbols):
             value = random.choice(all_symbol)
             current_symbols.remove(value)
             column.append(value)
+
         columns.append(column)
 
     return columns 
@@ -36,7 +37,7 @@ def get_slot_machine_spin(rows, cols, symbols):
 def print_slot_machine(columns):
     for row in range(len(columns[0])):
         for i, column in enumerate(columns):
-            if i != len(columns)-1:
+            if i != len(columns) -1:
                 print(column[row], end=" | ")
             else:
                 print(column[row])
